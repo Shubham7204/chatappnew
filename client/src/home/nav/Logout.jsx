@@ -21,7 +21,7 @@ function Logout() {
     }
   };
   return (
-    <nav className="w-full bg-white text-black flex justify-between items-center p-2 shadow-md">
+    <nav className="w-full bg-gray-100 text-black flex justify-between items-center p-2 shadow-md">
       <h1 className="text-2xl font-bold ml-4">ChatApp</h1>
       <button>
         <TbLogout2

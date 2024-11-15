@@ -124,7 +124,7 @@ function Signup() {
           Already have an account?{" "}
           <Link to="/login" className="text-purple-600 font-semibold hover:underline">
             Login
-          </Link>
+          </Link> 
         </p>
       </form>
     </div>

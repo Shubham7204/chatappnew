@@ -6,7 +6,6 @@ function Chatuser() {
   const { selectedConversation } = useConversation();
   const { onlineUsers } = useSocketContext();
 
-  // Function to check if the selected user is online
   const getOnlineUsersStatus = (userId) => {
     return onlineUsers.includes(userId) ? "Online" : "Offline";
   };
@@ -14,13 +13,11 @@ function Chatuser() {
   return (
     <div className="bg-white p-4 flex items-center space-x-4 shadow-md">
       <div>
-        {/* Display the user's initials as an avatar */}
         <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-lg font-medium text-gray-600">
           {selectedConversation?.fullname?.charAt(0).toUpperCase() || "U"}
         </div>
       </div>
       <div>
-        {/* Display the selected user's name and status */}
         <h1 className="text-lg font-semibold text-gray-800">
           {selectedConversation?.fullname || "No User Selected"}
         </h1>
