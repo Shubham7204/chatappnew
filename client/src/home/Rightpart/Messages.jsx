@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Message from "./Message";
-import useGetMessage from "../../context/useGetMessage.js";
+import useGetMessage from "../../hooks/useGetMessage.js";
 import Loading from "../../components/Loading.jsx";
-import useGetSocketMessage from "../../context/useGetSocketMessage.js";
+import useGetSocketMessage from "../../hooks/useGetSocketMessage.js";
 import useConversation from "../../statemanage/useConversation.js";
 
 function Messages() {

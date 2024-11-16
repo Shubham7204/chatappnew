@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import useGetAllUsers from "../../context/useGetAllUsers";
+import useGetAllUsers from "../../hooks/useGetAllUsers";
 import useConversation from "../../statemanage/useConversation";
 import toast from "react-hot-toast";
 
