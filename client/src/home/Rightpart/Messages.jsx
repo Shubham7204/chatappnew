@@ -23,13 +23,16 @@ function Messages() {
   }, [conversationMessages]);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-white">
+    <div className="flex-1 overflow-y-auto bg-gray-100 px-4 py-2">
       {loading ? (
         <Loading />
       ) : (
         conversationMessages.length > 0 &&
-        conversationMessages.map((message) => (
-          <div key={message._id} ref={lastMsgRef}>
+        conversationMessages.map((message, index) => (
+          <div
+            key={message._id}
+            ref={index === conversationMessages.length - 1 ? lastMsgRef : null}
+          >
             <Message message={message} />
           </div>
         ))
@@ -37,7 +40,7 @@ function Messages() {
 
       {!loading && conversationMessages.length === 0 && (
         <div className="flex items-center justify-center h-full">
-          <p>Say! Hi to start the conversation</p>
+          <p className="text-gray-500">Say Hi to start the conversation!</p>
         </div>
       )}
     </div>
