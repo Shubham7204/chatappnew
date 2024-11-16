@@ -7,8 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://chatappforlearniee.netlify.app/",
-    origin: "http://localhost:3001",
+    origin: "https://singular-cat-311d81.netlify.app/",
+    // origin: "http://localhost:3001",
     methods: ["GET", "POST"],
   },
 });
