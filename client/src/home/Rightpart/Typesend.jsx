@@ -28,6 +28,7 @@ function Typesend() {
     }
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (message.trim() || selectedFile) {
