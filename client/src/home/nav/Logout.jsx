@@ -9,7 +9,7 @@ function Logout() {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const res = await axios.post("/api/user/logout");
+      await axios.post("/api/user/logout");
       localStorage.removeItem("ChatApp");
       Cookies.remove("jwt");
       setLoading(false);
@@ -17,15 +17,16 @@ function Logout() {
       window.location.reload();
     } catch (error) {
       console.log("Error in Logout", error);
-      toast.error("Error in logging out");
+      toast.error("Internal Server Error");
     }
   };
   return (
-    <nav className="w-full bg-gray-100 text-black flex justify-between items-center p-2 shadow-md">
+    <nav className="w-full bg-gray-100 text-[#1f2029] flex justify-between items-center p-2 shadow-md">
       <h1 className="text-2xl font-bold ml-4">ChatApp</h1>
       <button>
         <TbLogout2
-          className="text-5xl p-2 hover:bg-gray-100 rounded-lg duration-300"
+          title="Logout"
+          className="text-5xl p-2 hover:scale-110 cursor-pointer rounded-lg duration-300"
           onClick={handleLogout}
         />
       </button>

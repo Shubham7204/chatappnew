@@ -2,11 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function Login() {
-  const [authUser, setAuthUser] = useAuth();
+  const [setAuthUser] = useAuth();
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -25,9 +27,10 @@ function Login() {
       .then((response) => {
         if (response.data) {
           toast.success("Login successful");
+          window.location.href = '/'
         }
         localStorage.setItem("ChatApp", JSON.stringify(response.data));
-        setAuthUser(response.data);
+        setAuthUser(response.data)
       })
       .catch((error) => {
         if (error.response) {
