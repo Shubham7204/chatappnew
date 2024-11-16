@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const messageSchema = new mongoose.Schema(
   {
     senderId: {
@@ -13,13 +14,20 @@ const messageSchema = new mongoose.Schema(
     },
     message: {
       type: String,
+      required: function() {
+        // Message is required only if there's no file
+        return !this.fileUrl;
+      }
     },
     fileUrl: {
-      type: String, // URL for the uploaded file
+      type: String,
+      default: null
     },
     fileType: {
-      type: String, // Type of file (e.g., "image", "document")
-    },
+      type: String,
+      enum: ['image', 'file', null],
+      default: null
+    }
   },
   { timestamps: true }
 );
