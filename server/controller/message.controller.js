@@ -6,7 +6,7 @@ import cloudinary from '../utils/cloudinary.js';
 export const sendMessage = async (req, res) => {
   try {
     const { message } = req.body;
-    const file = req.file; // Get the file from multer
+    const file = req.file;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
@@ -19,11 +19,29 @@ export const sendMessage = async (req, res) => {
       const fileStr = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
       
       try {
+        // Determine the resource type based on mimetype
+        const resourceType = file.mimetype.startsWith('image/') ? 'image' : 'raw';
+        
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-          resource_type: "auto",
+          resource_type: resourceType,
+          // For PDFs and other files, specify the file extension
+          format: file.mimetype === 'application/pdf' ? 'pdf' : undefined,
+          // Add these options for better handling of documents
+          flags: 'attachment',
+          use_filename: true,
+          unique_filename: true,
         });
+
         fileUrl = uploadResponse.secure_url;
-        fileType = file.mimetype.startsWith('image/') ? 'image' : 'file';
+        // Set fileType based on mimetype
+        if (file.mimetype.startsWith('image/')) {
+          fileType = 'image';
+        } else if (file.mimetype === 'application/pdf') {
+          fileType = 'pdf';
+        } else {
+          fileType = 'file';
+        }
+
       } catch (error) {
         console.log("Error uploading to cloudinary:", error);
         return res.status(500).json({ error: "Error uploading file" });
@@ -48,7 +66,7 @@ export const sendMessage = async (req, res) => {
     const newMessage = new Message({
       senderId,
       receiverId,
-      message: message || "", // Provide empty string if no message
+      message: message || "",
       fileUrl,
       fileType
     });
