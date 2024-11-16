@@ -13,34 +13,19 @@ export const sendMessage = async (req, res) => {
     let fileUrl = null;
     let fileType = null;
 
-    // Handle file upload if present
     if (file) {
-      // Convert the buffer to base64
       const fileStr = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
 
       try {
-        // Determine the resource type based on mimetype
-        const resourceType = file.mimetype.startsWith('image/') ? 'image' : 'raw';
-
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-          resource_type: resourceType,
-          // For PDFs and other files, specify the file extension
+          resource_type: 'auto',
           format: file.mimetype === 'application/pdf' ? 'pdf' : undefined,
-          // Add these options for better handling of documents
-          flags: 'attachment',
-          use_filename: true,
-          unique_filename: true,
+          flags: file.mimetype === 'application/pdf' ? 'attachment' : undefined,
         });
 
         fileUrl = uploadResponse.secure_url;
-        // Set fileType based on mimetype
-        if (file.mimetype.startsWith('image/')) {
-          fileType = 'image';
-        } else if (file.mimetype === 'application/pdf') {
-          fileType = 'pdf';
-        } else {
-          fileType = 'file';
-        }
+        fileType = file.mimetype === 'application/pdf' ? 'pdf' : 
+                  file.mimetype.startsWith('image/') ? 'image' : 'file';
 
       } catch (error) {
         console.log("Error uploading to cloudinary:", error);
@@ -48,7 +33,6 @@ export const sendMessage = async (req, res) => {
       }
     }
 
-    // Validate that either message or file is present
     if (!message && !fileUrl) {
       return res.status(400).json({ error: "Either message or file is required" });
     }
@@ -99,11 +83,11 @@ export const getMessage = async (req, res) => {
     }).populate("messages");
 
     if (!conversation) {
-      return res.status(201).json([]);
+      return res.status(200).json([]);
     }
 
     const messages = conversation.messages;
-    res.status(201).json(messages);
+    res.status(200).json(messages);
   } catch (error) {
     console.log("Error in getMessage", error);
     res.status(500).json({ error: "Internal server error" });
