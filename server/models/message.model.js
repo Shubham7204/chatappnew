@@ -15,6 +15,7 @@ const messageSchema = new mongoose.Schema(
     message: {
       type: String,
       required: function() {
+        // Message is required only if there's no file
         return !this.fileUrl;
       }
     },
@@ -33,3 +34,4 @@ const messageSchema = new mongoose.Schema(
 
 const Message = mongoose.model("message", messageSchema);
 export default Message;
+

@@ -27,3 +27,4 @@ router.post("/send/:id", secureRoute, upload.single('file'), sendMessage);
 router.get("/get/:id", secureRoute, getMessage);
 
 export default router;
+

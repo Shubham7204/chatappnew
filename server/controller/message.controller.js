@@ -17,11 +17,11 @@ export const sendMessage = async (req, res) => {
     if (file) {
       // Convert the buffer to base64
       const fileStr = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-      
+
       try {
         // Determine the resource type based on mimetype
         const resourceType = file.mimetype.startsWith('image/') ? 'image' : 'raw';
-        
+
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
           resource_type: resourceType,
           // For PDFs and other files, specify the file extension
@@ -93,15 +93,15 @@ export const getMessage = async (req, res) => {
   try {
     const { id: chatUser } = req.params;
     const senderId = req.user._id;
-    
+
     let conversation = await Conversation.findOne({
       members: { $all: [senderId, chatUser] },
     }).populate("messages");
-    
+
     if (!conversation) {
       return res.status(201).json([]);
     }
-    
+
     const messages = conversation.messages;
     res.status(201).json(messages);
   } catch (error) {
