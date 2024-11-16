@@ -25,7 +25,7 @@ function Right() {
               <Messages />
             </div>
             {/* Adjusting Typesend with a margin to lift it from the bottom */}
-            <div className="border-t p-2"> {/* Added mb-4 here */}
+            <div className="border-t p-2 mb-12"> {/* Added mb-4 here */}
               <Typesend />
             </div>
           </>
@@ -48,9 +48,9 @@ const NoChatSelected = () => {
       >
         <CiMenuFries className="text-black text-xl" />
       </label>
-      <h1 className="text-center text-xl">
+      <h1 className="text-center">
         Welcome{" "}
-        <span className="font-semibold underline text-xl">{authUser.user.fullname}</span>
+        <span className="font-semibold text-xl">{authUser.user.fullname}</span>
         <br />
         No chat selected, please start conversation by selecting anyone to your
         contacts

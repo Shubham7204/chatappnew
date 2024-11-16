@@ -14,7 +14,6 @@ const useSendMessage = () => {
       
       if (file) {
         formData.append("file", file);
-        formData.append("fileName", file.name.split('.')[0]);
       }
 
       const res = await axios.post(

@@ -4,7 +4,7 @@ import io from "socket.io-client";
 
 const socketContext = createContext();
 
-// Custom hook
+// it is a hook.
 export const useSocketContext = () => {
   return useContext(socketContext);
 };
@@ -14,12 +14,9 @@ export const SocketProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [authUser] = useAuth();
 
-  // Use the same environment variable for the API URL
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
     if (authUser) {
-      const socket = io(apiUrl, {
+      const socket = io("http://localhost:5002", {
         query: {
           userId: authUser.user._id,
         },
@@ -35,8 +32,7 @@ export const SocketProvider = ({ children }) => {
         setSocket(null);
       }
     }
-  }, [authUser, apiUrl]);
-
+  }, [authUser]);
   return (
     <socketContext.Provider value={{ socket, onlineUsers }}>
       {children}

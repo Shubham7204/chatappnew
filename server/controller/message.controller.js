@@ -5,7 +5,7 @@ import cloudinary from '../utils/cloudinary.js';
 
 export const sendMessage = async (req, res) => {
   try {
-    const { message, fileName } = req.body;
+    const { message } = req.body;
     const file = req.file;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
@@ -20,13 +20,12 @@ export const sendMessage = async (req, res) => {
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
           resource_type: 'auto',
           format: file.mimetype === 'application/pdf' ? 'pdf' : undefined,
-          flags: 'attachment',
-          delivery_type: file.mimetype === 'application/pdf' ? 'attachment' : 'upload',
+          flags: file.mimetype === 'application/pdf' ? 'attachment' : undefined,
         });
 
         fileUrl = uploadResponse.secure_url;
-        fileType = file.mimetype === 'application/pdf' ? 'pdf' :
-          file.mimetype.startsWith('image/') ? 'image' : 'file';
+        fileType = file.mimetype === 'application/pdf' ? 'pdf' : 
+                  file.mimetype.startsWith('image/') ? 'image' : 'file';
 
       } catch (error) {
         console.log("Error uploading to cloudinary:", error);
@@ -53,8 +52,7 @@ export const sendMessage = async (req, res) => {
       receiverId,
       message: message || "",
       fileUrl,
-      fileType,
-      fileName
+      fileType
     });
 
     if (newMessage) {
