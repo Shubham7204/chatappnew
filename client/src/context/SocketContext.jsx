@@ -16,15 +16,10 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      // const socket = io("http://localhost:5002", {
-      //   query: {
-      //     userId: authUser.user._id,
-      //   },
-
-        const socket = io("https://chatappnew-1bng.onrender.com", {
-          query: {
-            userId: authUser.user._id,
-          },
+      const socket = io("http://localhost:5002", {
+        query: {
+          userId: authUser.user._id,
+        },
       });
       setSocket(socket);
       socket.on("getOnlineUsers", (users) => {

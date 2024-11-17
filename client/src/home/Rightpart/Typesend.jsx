@@ -14,7 +14,7 @@ function Typesend() {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      
+
       // Create preview for images
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();
@@ -28,7 +28,7 @@ function Typesend() {
     }
   };
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (message.trim() || selectedFile) {
@@ -58,9 +58,9 @@ function Typesend() {
         <div className="mb-2 relative">
           {previewUrl ? (
             <div className="relative inline-block">
-              <img 
-                src={previewUrl} 
-                alt="Preview" 
+              <img
+                src={previewUrl}
+                alt="Preview"
                 className="max-h-32 rounded-lg"
               />
               <button
@@ -68,18 +68,18 @@ function Typesend() {
                 onClick={removeFile}
                 className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
               >
-                ×
+                X
               </button>
             </div>
           ) : (
-            <div className="relative inline-block bg-gray-100 p-2 rounded-lg">
+            <div className="relative flex bg-gray-100 p-2 rounded-lg">
               <span className="pr-6">{selectedFile.name}</span>
               <button
                 type="button"
                 onClick={removeFile}
-                className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                className="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
               >
-                ×
+                X
               </button>
             </div>
           )}
@@ -87,14 +87,14 @@ function Typesend() {
       )}
 
       <div className="flex space-x-2 items-center">
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={handleAttachClick}
-          className="text-gray-500 hover:text-gray-700"
+          className="text-gray-800"
         >
           <IoMdAttach className="text-2xl" />
         </button>
-        
+
         <input
           type="file"
           ref={fileInputRef}
@@ -110,14 +110,18 @@ function Typesend() {
           onChange={(e) => setMessage(e.target.value)}
           className="border-[1px] border-gray-300 flex items-center w-full py-2 px-3 rounded-xl grow outline-none"
         />
-        
-        <button 
-          type="submit" 
-          disabled={loading || (!message.trim() && !selectedFile)}
-          className="text-purple-600 hover:text-purple-700 disabled:text-gray-400"
-        >
-          <IoSend className="text-3xl" />
-        </button>
+
+        {
+          loading
+            ? <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+            : <button
+              type="submit"
+              disabled={loading || (!message.trim() && !selectedFile)}
+              className="text-gray-800 cursor-pointer"
+            >
+              <IoSend className="text-3xl" />
+            </button>
+        }
       </div>
     </form>
   );

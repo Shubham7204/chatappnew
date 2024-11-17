@@ -23,7 +23,7 @@ function Messages() {
   }, [conversationMessages]);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gray-100 px-4 py-2">
+    <div className="flex-1 overflow-y-auto px-4 py-2">
       {loading ? (
         <Loading />
       ) : (
