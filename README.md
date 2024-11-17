@@ -158,7 +158,7 @@ cd chatappnew
 ### 2. Setup Environment Variables
 Server (.env)
 ```bash
-PORT=5000
+PORT=5002
 MONGO_URI=<Your MongoDB URI>
 JWT_SECRET=<Your Secret Key>
 CLOUDINARY_NAME=<Your Cloudinary Name>
